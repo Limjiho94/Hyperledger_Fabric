@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">      
+      <h1 style="background-color:rgb(212, 233, 96);" >Set Manufacture Info Page</h1>    
+      <img src="http://car.chosun.com/site/data/img_dir/2019/03/15/2019031580132_0.jpg" width="400" height="250"/>        
+    </div>
+    
+    <div class="c_container">        
+        CarNumber <input type="text" id=inp_carno> <br>
+        CarPIN <input type="text" id=inp_carPIN> <br>
+        CarCCVol <input type="text" id=inp_carCCvol> <br>
+        CarModel <input type="text" id=inp_carmodel> <br>
+        CarReleasePrice <input type="text" id=inp_carprice> <br>        
+        CarColor <input type="text" id=inp_carcolor> <br>
+        <button id="btn_setManufactureInfo">Set a Manufacture Info</button>
+        <br>
+        <br>
+        <button onclick="window.location.href='http://localhost:8080/'">Back to the Home</button>
+
+        <div id="resultwindow">
+            <h2>UsedCar Query Result</h2>
+            <div id="queryresult">
+                <p>whatwhat</p>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#resultwindow").hide()
+    $("#btn_setManufactureInfo").click(function(){
+        const _carno = $("#inp_carno").val()
+        const _carPIN = $("#inp_carPIN").val()
+        const _carCCvol = $("#inp_carCCvol").val()
+        const _carmodel = $("#inp_carmodel").val()
+        const _carprice = $("#inp_carprice").val()
+        const _carcolor = $("#inp_carcolor").val()
+        $.post("/api/setManufactureInfo",{carno: _carno, carPIN: _carPIN, carCCvol: _carCCvol, carmodel: _carmodel, carprice: _carprice, carcolor: _carcolor } ,function(data, status){            
+            $("#resultwindow").show()
+            $("#queryresult").empty()            
+            $("#queryresult").append(status)
+            $("#queryresult").append("<br>")
+        })
+    })
+</script>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">      
+      <h1 style="background-color:rgb(212, 233, 96);" >Set Repair Info Page</h1>     
+      <img src="http://car.chosun.com/site/data/img_dir/2019/03/15/2019031580132_0.jpg" width="400" height="250"/>       
+    </div>
+    
+    <div class="c_container">        
+        CarNumber <input type="text" id=inp_carno> <br>
+        RepairHistory <input type="text" id=inp_repairhistory> <br>
+        RepairDate <input type="text" id=inp_repairdate> <br>
+        RepairPlace <input type="text" id=inp_repairplace> <br>
+        MechanicName <input type="text" id=inp_mechanicname> <br>        
+        <button id="btn_setRepairInfo">Set a Repair Info</button>
+        <br>
+        <br>
+        <button onclick="window.location.href='http://localhost:8080/'">Back to the Home</button>
+
+        <div id="resultwindow">
+            <h2>UsedCar Query Result</h2>
+            <div id="queryresult">
+                <p>whatwhat</p>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#resultwindow").hide()
+    $("#btn_setRepairInfo").click(function(){
+        const _carno = $("#inp_carno").val()
+        const _repairhistory = $("#inp_repairhistory").val()
+        const _repairdate = $("#inp_repairdate").val()
+        const _repairplace = $("#inp_repairplace").val()
+        const _mechanicname = $("#inp_mechanicname").val()
+        $.post("/api/setRepairInfo",{carno: _carno, repairhistory: _repairhistory, repairdate: _repairdate, repairplace: _repairplace, mechanicname: _mechanicname} ,function(data, status){            
+            $("#resultwindow").show()
+            $("#queryresult").empty()            
+            $("#queryresult").append(status)
+            $("#queryresult").append("<br>")
+        })
+    })
+</script>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  </head>
+
+  <body>
+    <div class="c_container">
+      <h1 style="background-color:rgb(212, 233, 96);" >Query a Total info</h1>  
+      <img src="http://car.chosun.com/site/data/img_dir/2019/03/15/2019031580132_0.jpg" width="400" height="250"/>          
+    </div>
+
+    <div class="c_container">        
+        Car.No <input type="text" id=inp_carno> <br>
+        <button id="btn_queryTotalInfo">Query a Total Info From Selective CarNumber</button>
+        <br>
+        <br>
+        <button onclick="window.location.href='http://localhost:8080/'">Back to the Home</button>
+
+        <div id="resultwindow">
+            <h2>UsedCar Query Result</h2>
+            <div id="queryresult">
+                <p>whatwhat</p>
+            </div>
+        </div>
+
+    </div>
+  </body>
+</html>
+
+<script>
+    $("#resultwindow").hide()
+    $("#btn_queryTotalInfo").click(function(){
+        const _carno = $("#inp_carno").val()
+        $.post("/api/queryTotalInfo",{carno: _carno} ,function(data, status){            
+            $("#resultwindow").show()
+            $("#queryresult").empty()            
+            $("#queryresult").append(JSON.stringify(data))
+            $("#queryresult").append("<br>")
+        })
+    })
+</script>
+
